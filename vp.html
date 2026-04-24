@@ -7,285 +7,56 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
   :root {
-    --navy:   #0B1F3A;
-    --blue:   #1A4B8C;
-    --mid:    #2E75B6;
-    --accent: #00C2CB;
-    --light:  #F0F6FF;
-    --white:  #FFFFFF;
-    --gray:   #6B7A90;
-    --border: #D0DFF0;
+    --navy: #0B1F3A; --blue: #1A4B8C; --mid: #2E75B6;
+    --accent: #00C2CB; --light: #F0F6FF; --white: #FFFFFF;
+    --gray: #6B7A90; --border: #D0DFF0;
   }
-
-  body {
-    font-family: 'DM Sans', sans-serif;
-    background: #EBF2FA;
-    color: #1A2A3A;
-    min-height: 100vh;
-    padding: 40px 20px;
-  }
-
-  .page {
-    max-width: 860px;
-    margin: 0 auto;
-    animation: fadeUp .6s ease both;
-  }
-
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(24px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-
-  /* HEADER */
-  .header {
-    background: var(--navy);
-    border-radius: 16px 16px 0 0;
-    padding: 44px 48px 36px;
-    position: relative;
-    overflow: hidden;
-  }
-  .header::before {
-    content: '';
-    position: absolute;
-    top: -60px; right: -60px;
-    width: 260px; height: 260px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(0,194,203,.18) 0%, transparent 70%);
-  }
-  .header::after {
-    content: '';
-    position: absolute;
-    bottom: 0; left: 0; right: 0;
-    height: 3px;
-    background: linear-gradient(90deg, var(--accent), var(--mid));
-  }
-
-  .tag {
-    display: inline-block;
-    background: rgba(0,194,203,.15);
-    color: var(--accent);
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: .1em;
-    text-transform: uppercase;
-    padding: 4px 12px;
-    border-radius: 20px;
-    border: 1px solid rgba(0,194,203,.3);
-    margin-bottom: 16px;
-  }
-
-  .job-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 34px;
-    font-weight: 900;
-    color: var(--white);
-    line-height: 1.15;
-  }
-
-  /* META BAR */
-  .meta-bar {
-    background: var(--blue);
-    padding: 18px 48px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px 24px;
-  }
-
-  .meta-item {
-    display: flex;
-    align-items: center;
-    gap: 7px;
-    font-size: 13px;
-    color: rgba(255,255,255,.75);
-  }
-  .meta-item .dot {
-    width: 6px; height: 6px;
-    border-radius: 50%;
-    background: var(--accent);
-    flex-shrink: 0;
-  }
+  body { font-family: 'DM Sans', sans-serif; background: #EBF2FA; color: #1A2A3A; min-height: 100vh; padding: 40px 20px; }
+  .page { max-width: 860px; margin: 0 auto; animation: fadeUp .6s ease both; }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+  .header { background: var(--navy); border-radius: 16px 16px 0 0; padding: 44px 48px 36px; position: relative; overflow: hidden; }
+  .header::before { content: ''; position: absolute; top: -60px; right: -60px; width: 260px; height: 260px; border-radius: 50%; background: radial-gradient(circle, rgba(0,194,203,.18) 0%, transparent 70%); }
+  .header::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--accent), var(--mid)); }
+  .tag { display: inline-block; background: rgba(0,194,203,.15); color: var(--accent); font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; padding: 4px 12px; border-radius: 20px; border: 1px solid rgba(0,194,203,.3); margin-bottom: 16px; }
+  .job-title { font-family: 'Playfair Display', serif; font-size: 34px; font-weight: 900; color: var(--white); line-height: 1.15; }
+  .meta-bar { background: var(--blue); padding: 18px 48px; display: flex; flex-wrap: wrap; gap: 10px 24px; }
+  .meta-item { display: flex; align-items: center; gap: 7px; font-size: 13px; color: rgba(255,255,255,.75); }
+  .meta-item .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
   .meta-item strong { color: var(--white); font-weight: 500; }
-
-  /* BODY */
-  .body {
-    background: var(--white);
-    padding: 44px 48px;
-    display: grid;
-    gap: 36px;
-  }
-
-  .section-label {
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: .12em;
-    text-transform: uppercase;
-    color: var(--mid);
-    margin-bottom: 14px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .section-label::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: var(--border);
-  }
-
-  .summary-text {
-    font-size: 15px;
-    line-height: 1.8;
-    color: #2A3A4A;
-  }
-
-  /* INFO GRID */
-  .info-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-  }
-
-  .info-card {
-    background: var(--light);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 14px 18px;
-  }
-  .info-card .label {
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: .1em;
-    text-transform: uppercase;
-    color: var(--gray);
-    margin-bottom: 4px;
-  }
-  .info-card .value {
-    font-size: 14px;
-    font-weight: 500;
-    color: var(--navy);
-    line-height: 1.5;
-  }
-
-  /* RESPONSIBILITY GROUPS */
-  .resp-group {
-    margin-bottom: 24px;
-  }
+  .body { background: var(--white); padding: 44px 48px; display: grid; gap: 36px; }
+  .section-label { font-size: 10px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--mid); margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+  .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+  .summary-text { font-size: 15px; line-height: 1.8; color: #2A3A4A; }
+  .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .info-card { background: var(--light); border: 1px solid var(--border); border-radius: 10px; padding: 14px 18px; }
+  .info-card .label { font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--gray); margin-bottom: 4px; }
+  .info-card .value { font-size: 14px; font-weight: 500; color: var(--navy); line-height: 1.5; }
+  .resp-group { margin-bottom: 24px; }
   .resp-group:last-child { margin-bottom: 0; }
-
-  .group-title {
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: .06em;
-    text-transform: uppercase;
-    color: var(--navy);
-    background: var(--light);
-    border-left: 3px solid var(--accent);
-    padding: 7px 12px;
-    border-radius: 0 6px 6px 0;
-    margin-bottom: 12px;
-  }
-
-  .resp-list, .qual-list {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 9px;
-  }
-
-  .resp-list li {
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-    font-size: 14px;
-    line-height: 1.65;
-    color: #2A3A4A;
-  }
-
-  .resp-list li::before {
-    content: '';
-    width: 7px; height: 7px;
-    min-width: 7px;
-    border-radius: 2px;
-    background: var(--accent);
-    margin-top: 7px;
-  }
-
-  .qual-list li {
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-    font-size: 14px;
-    line-height: 1.65;
-    color: #2A3A4A;
-  }
-
-  .qual-list li::before {
-    content: '✓';
-    color: var(--mid);
-    font-weight: 700;
-    font-size: 13px;
-    margin-top: 2px;
-    min-width: 16px;
-  }
-
-  /* SKILLS */
-  .skills-wrap {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-  }
-
-  .skill-pill {
-    background: var(--light);
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    padding: 6px 14px;
-    font-size: 13px;
-    font-weight: 500;
-    color: var(--blue);
-    transition: background .2s, border-color .2s;
-    cursor: default;
-  }
-  .skill-pill:hover {
-    background: var(--blue);
-    color: var(--white);
-    border-color: var(--blue);
-  }
-
-  /* FOOTER */
-  .footer {
-    background: var(--navy);
-    border-radius: 0 0 16px 16px;
-    padding: 20px 48px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  .footer .f-left, .footer .f-right {
-    font-size: 12px;
-    color: rgba(255,255,255,.45);
-  }
+  .group-title { font-size: 12px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--navy); background: var(--light); border-left: 3px solid var(--accent); padding: 7px 12px; border-radius: 0 6px 6px 0; margin-bottom: 12px; }
+  .resp-list, .qual-list { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+  .resp-list li { display: flex; align-items: flex-start; gap: 12px; font-size: 14px; line-height: 1.65; color: #2A3A4A; }
+  .resp-list li::before { content: ''; width: 7px; height: 7px; min-width: 7px; border-radius: 2px; background: var(--accent); margin-top: 7px; }
+  .qual-list li { display: flex; align-items: flex-start; gap: 12px; font-size: 14px; line-height: 1.65; color: #2A3A4A; }
+  .qual-list li::before { content: '✓'; color: var(--mid); font-weight: 700; font-size: 13px; margin-top: 2px; min-width: 16px; }
+  .skills-wrap { display: flex; flex-wrap: wrap; gap: 8px; }
+  .skill-pill { background: var(--light); border: 1px solid var(--border); border-radius: 20px; padding: 6px 14px; font-size: 13px; font-weight: 500; color: var(--blue); transition: background .2s, border-color .2s; cursor: default; }
+  .skill-pill:hover { background: var(--blue); color: var(--white); border-color: var(--blue); }
+  .footer { background: var(--navy); border-radius: 0 0 16px 16px; padding: 20px 48px; display: flex; justify-content: space-between; align-items: center; }
+  .footer .f-left, .footer .f-right { font-size: 12px; color: rgba(255,255,255,.45); }
   .footer strong { color: rgba(255,255,255,.75); }
-
-  @media (max-width: 600px) {
-    .header, .body, .meta-bar, .footer { padding-left: 24px; padding-right: 24px; }
-    .job-title { font-size: 26px; }
-    .info-grid { grid-template-columns: 1fr; }
-  }
+  @media (max-width: 600px) { .header, .body, .meta-bar, .footer { padding-left: 24px; padding-right: 24px; } .job-title { font-size: 26px; } .info-grid { grid-template-columns: 1fr; } }
 </style>
 </head>
 <body>
 <div class="page">
 
-  <!-- HEADER -->
   <div class="header">
     <div class="tag">Executive PMO Leadership</div>
     <h1 class="job-title">Vice President, Program Management<br>(Hyperscale)</h1>
   </div>
 
-  <!-- META BAR -->
   <div class="meta-bar">
     <div class="meta-item"><span class="dot"></span><strong>Department:</strong>&nbsp; PMO – Executive Leadership</div>
     <div class="meta-item"><span class="dot"></span><strong>Employment:</strong>&nbsp; Full-Time</div>
@@ -293,18 +64,15 @@
     <div class="meta-item"><span class="dot"></span><strong>Certifications:</strong>&nbsp; PgMP &amp; PMP Required</div>
   </div>
 
-  <!-- BODY -->
   <div class="body">
 
-    <!-- Summary -->
     <div>
       <div class="section-label">Position Summary</div>
       <p class="summary-text">
-        The VP of Program Management – Hyperscale is the senior executive responsible for the full lifecycle of program delivery across AFL's hyperscale data center operations, covering bulk fiber splicing, inside and outside plant (ISP/OSP) fiber installation, testing, troubleshooting, and large-scale interconnect work. This role operates at the intersection of C-suite strategy and field execution — aligning business objectives with operational delivery, client commitments, and PMO governance across massive data center campus environments. The VP owns the PMO's structure, talent, budget, and performance, and serves as the organization's executive-level face to major hyperscale clients including cloud providers, colocation operators, and hyperscale data center developers.
+        The VP of Program Management – Hyperscale is the senior executive responsible for the full lifecycle of program delivery across hyperscale data center operations, covering bulk fiber splicing, inside and outside plant (ISP/OSP) fiber installation, testing, troubleshooting, and large-scale interconnect work. This role operates at the intersection of C-suite strategy and field execution — aligning business objectives with operational delivery, client commitments, and PMO governance across massive data center campus environments. The VP owns the PMO's structure, talent, budget, and performance, and serves as the organization's executive-level face to major hyperscale clients including cloud providers, colocation operators, and hyperscale data center developers.
       </p>
     </div>
 
-    <!-- Position Details -->
     <div>
       <div class="section-label">Position Details</div>
       <div class="info-grid">
@@ -322,12 +90,11 @@
         </div>
         <div class="info-card">
           <div class="label">Education</div>
-          <div class="value">Bachelor's in Engineering, Business, or Construction Management · Master's Preferred</div>
+          <div class="value">Bachelor's in Electrical, Telecom, or Civil Engineering · Construction Management Accepted · Master's Preferred</div>
         </div>
       </div>
     </div>
 
-    <!-- Responsibilities -->
     <div>
       <div class="section-label">Key Responsibilities</div>
 
@@ -400,11 +167,11 @@
 
     </div>
 
-    <!-- Qualifications -->
     <div>
       <div class="section-label">Qualifications &amp; Requirements</div>
       <ul class="qual-list">
-        <li>Bachelor's degree in Engineering, Business, or Construction Management; Master's degree or MBA preferred</li>
+        <li>Must be authorized to work in the United States without current or future visa sponsorship; the organization participates in E-Verify</li>
+        <li>Bachelor's degree in Electrical Engineering, Telecommunications Engineering, or Civil/Construction Engineering required; Master's degree in Engineering or Project Management strongly preferred</li>
         <li>15+ years of progressive program management experience with demonstrated increase in scope, complexity, and responsibility</li>
         <li>5+ years of direct experience in hyperscale data center delivery, telecom infrastructure, or critical facility construction</li>
         <li>Demonstrated success leading large, geographically dispersed cross-functional teams of 50+ people across multiple concurrent programs</li>
@@ -419,7 +186,6 @@
       </ul>
     </div>
 
-    <!-- Skills -->
     <div>
       <div class="section-label">Core Skills</div>
       <div class="skills-wrap">
@@ -442,9 +208,8 @@
       </div>
     </div>
 
-  </div><!-- /body -->
+  </div>
 
-  <!-- FOOTER -->
   <div class="footer">
     <div class="f-left">Hyperscale PMO &nbsp;·&nbsp; <strong>Job Description #01 of 18</strong></div>
     <div class="f-right">April 2026</div>
