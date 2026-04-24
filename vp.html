@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VP, Program Management (Hyperscale)</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy:   #0B1F3A;
+    --blue:   #1A4B8C;
+    --mid:    #2E75B6;
+    --accent: #00C2CB;
+    --light:  #F0F6FF;
+    --white:  #FFFFFF;
+    --gray:   #6B7A90;
+    --border: #D0DFF0;
+  }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: #EBF2FA;
+    color: #1A2A3A;
+    min-height: 100vh;
+    padding: 40px 20px;
+  }
+
+  .page {
+    max-width: 860px;
+    margin: 0 auto;
+    animation: fadeUp .6s ease both;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* HEADER */
+  .header {
+    background: var(--navy);
+    border-radius: 16px 16px 0 0;
+    padding: 44px 48px 36px;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 260px; height: 260px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(0,194,203,.18) 0%, transparent 70%);
+  }
+  .header::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent), var(--mid));
+  }
+
+  .tag {
+    display: inline-block;
+    background: rgba(0,194,203,.15);
+    color: var(--accent);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 20px;
+    border: 1px solid rgba(0,194,203,.3);
+    margin-bottom: 16px;
+  }
+
+  .job-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 34px;
+    font-weight: 900;
+    color: var(--white);
+    line-height: 1.15;
+  }
+
+  /* META BAR */
+  .meta-bar {
+    background: var(--blue);
+    padding: 18px 48px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 24px;
+  }
+
+  .meta-item {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 13px;
+    color: rgba(255,255,255,.75);
+  }
+  .meta-item .dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    flex-shrink: 0;
+  }
+  .meta-item strong { color: var(--white); font-weight: 500; }
+
+  /* BODY */
+  .body {
+    background: var(--white);
+    padding: 44px 48px;
+    display: grid;
+    gap: 36px;
+  }
+
+  .section-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--mid);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .summary-text {
+    font-size: 15px;
+    line-height: 1.8;
+    color: #2A3A4A;
+  }
+
+  /* INFO GRID */
+  .info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .info-card {
+    background: var(--light);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 18px;
+  }
+  .info-card .label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--gray);
+    margin-bottom: 4px;
+  }
+  .info-card .value {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--navy);
+    line-height: 1.5;
+  }
+
+  /* RESPONSIBILITY GROUPS */
+  .resp-group {
+    margin-bottom: 24px;
+  }
+  .resp-group:last-child { margin-bottom: 0; }
+
+  .group-title {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    color: var(--navy);
+    background: var(--light);
+    border-left: 3px solid var(--accent);
+    padding: 7px 12px;
+    border-radius: 0 6px 6px 0;
+    margin-bottom: 12px;
+  }
+
+  .resp-list, .qual-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+  }
+
+  .resp-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 14px;
+    line-height: 1.65;
+    color: #2A3A4A;
+  }
+
+  .resp-list li::before {
+    content: '';
+    width: 7px; height: 7px;
+    min-width: 7px;
+    border-radius: 2px;
+    background: var(--accent);
+    margin-top: 7px;
+  }
+
+  .qual-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 14px;
+    line-height: 1.65;
+    color: #2A3A4A;
+  }
+
+  .qual-list li::before {
+    content: '✓';
+    color: var(--mid);
+    font-weight: 700;
+    font-size: 13px;
+    margin-top: 2px;
+    min-width: 16px;
+  }
+
+  /* SKILLS */
+  .skills-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .skill-pill {
+    background: var(--light);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 6px 14px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--blue);
+    transition: background .2s, border-color .2s;
+    cursor: default;
+  }
+  .skill-pill:hover {
+    background: var(--blue);
+    color: var(--white);
+    border-color: var(--blue);
+  }
+
+  /* FOOTER */
+  .footer {
+    background: var(--navy);
+    border-radius: 0 0 16px 16px;
+    padding: 20px 48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .footer .f-left, .footer .f-right {
+    font-size: 12px;
+    color: rgba(255,255,255,.45);
+  }
+  .footer strong { color: rgba(255,255,255,.75); }
+
+  @media (max-width: 600px) {
+    .header, .body, .meta-bar, .footer { padding-left: 24px; padding-right: 24px; }
+    .job-title { font-size: 26px; }
+    .info-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="tag">Executive PMO Leadership</div>
+    <h1 class="job-title">Vice President, Program Management<br>(Hyperscale)</h1>
+  </div>
+
+  <!-- META BAR -->
+  <div class="meta-bar">
+    <div class="meta-item"><span class="dot"></span><strong>Department:</strong>&nbsp; PMO – Executive Leadership</div>
+    <div class="meta-item"><span class="dot"></span><strong>Employment:</strong>&nbsp; Full-Time</div>
+    <div class="meta-item"><span class="dot"></span><strong>Experience:</strong>&nbsp; 15+ Years</div>
+    <div class="meta-item"><span class="dot"></span><strong>Certifications:</strong>&nbsp; PgMP &amp; PMP Required</div>
+  </div>
+
+  <!-- BODY -->
+  <div class="body">
+
+    <!-- Summary -->
+    <div>
+      <div class="section-label">Position Summary</div>
+      <p class="summary-text">
+        The VP of Program Management – Hyperscale is the senior executive responsible for the full lifecycle of program delivery across AFL's hyperscale data center operations, covering bulk fiber splicing, inside and outside plant (ISP/OSP) fiber installation, testing, troubleshooting, and large-scale interconnect work. This role operates at the intersection of C-suite strategy and field execution — aligning business objectives with operational delivery, client commitments, and PMO governance across massive data center campus environments. The VP owns the PMO's structure, talent, budget, and performance, and serves as the organization's executive-level face to major hyperscale clients including cloud providers, colocation operators, and hyperscale data center developers.
+      </p>
+    </div>
+
+    <!-- Position Details -->
+    <div>
+      <div class="section-label">Position Details</div>
+      <div class="info-grid">
+        <div class="info-card">
+          <div class="label">Location</div>
+          <div class="value">Corporate HQ / Field Sites</div>
+        </div>
+        <div class="info-card">
+          <div class="label">Certifications Required</div>
+          <div class="value">PgMP &amp; PMP Required · MBA Preferred</div>
+        </div>
+        <div class="info-card">
+          <div class="label">Minimum Experience</div>
+          <div class="value">15+ years Program Management · 5+ years Hyperscale or Critical Infrastructure</div>
+        </div>
+        <div class="info-card">
+          <div class="label">Education</div>
+          <div class="value">Bachelor's in Engineering, Business, or Construction Management · Master's Preferred</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Responsibilities -->
+    <div>
+      <div class="section-label">Key Responsibilities</div>
+
+      <div class="resp-group">
+        <div class="group-title">Strategic Leadership &amp; PMO Governance</div>
+        <ul class="resp-list">
+          <li>Define and drive the overall PMO strategy, governance model, and operational framework across all hyperscale programs</li>
+          <li>Develop multi-quarter program roadmaps that link cross-functional delivery efforts to broader business goals such as revenue growth and client retention</li>
+          <li>Establish, enforce, and continuously improve project management methodologies, standards, playbooks, and quality benchmarks across the organization</li>
+          <li>Create and maintain a center of excellence for program delivery, embedding best practices in scheduling, cost control, risk management, and reporting</li>
+          <li>Provide quarterly performance updates and strategic briefings to senior management and executive stakeholders</li>
+          <li>Lead organizational design of the PMO, defining team structure, roles, reporting lines, and career pathways</li>
+        </ul>
+      </div>
+
+      <div class="resp-group">
+        <div class="group-title">Program Delivery &amp; Operational Excellence</div>
+        <ul class="resp-list">
+          <li>Oversee the execution and delivery of multiple complex, concurrent hyperscale fiber programs, ensuring adherence to scope, schedule, budget, and quality targets</li>
+          <li>Coordinate with cross-functional teams — including engineering, field operations, procurement, and quality assurance — to ensure integrated and seamless program execution</li>
+          <li>Monitor program portfolio health across all active projects; proactively identify risks, interdependencies, and resource conflicts and drive resolution</li>
+          <li>Ensure all programs comply with relevant safety regulations, environmental standards, industry codes of practice, and contractual requirements</li>
+          <li>Oversee change control processes across all programs, evaluating scope changes and their impact on schedule, cost, and client commitments</li>
+          <li>Review and approve major subcontractor deliverables, milestone completions, and program close-out documentation</li>
+          <li>Drive continuous improvement in delivery quality, schedule adherence, cost efficiency, and field safety performance</li>
+        </ul>
+      </div>
+
+      <div class="resp-group">
+        <div class="group-title">Client &amp; Stakeholder Management</div>
+        <ul class="resp-list">
+          <li>Serve as the primary executive liaison for major hyperscale clients including cloud providers, colocation operators, and data center developers</li>
+          <li>Build and maintain strong long-term client relationships, acting as the escalation point for executive-level concerns, disputes, and strategic discussions</li>
+          <li>Lead senior-level commercial negotiations, contract administration, and SLA management with key clients and strategic partners</li>
+          <li>Collaborate with business development teams to identify new program opportunities, support proposal development, and drive revenue growth</li>
+          <li>Represent the organization at industry conferences, client briefings, and strategic partner engagements</li>
+        </ul>
+      </div>
+
+      <div class="resp-group">
+        <div class="group-title">Financial Management</div>
+        <ul class="resp-list">
+          <li>Own P&amp;L responsibility for the hyperscale program portfolio, managing annual budgets, cost forecasts, and financial performance reporting</li>
+          <li>Develop and submit annual staffing and budget plans aligned with the hyperscale delivery pipeline and business growth targets</li>
+          <li>Monitor program expenditures against baselines; implement corrective actions to address cost variances and protect program profitability</li>
+          <li>Oversee earned value analysis, cash flow projections, and portfolio-level financial reporting to executive leadership</li>
+        </ul>
+      </div>
+
+      <div class="resp-group">
+        <div class="group-title">People Leadership &amp; Talent Development</div>
+        <ul class="resp-list">
+          <li>Lead, mentor, and develop a high-performing team of Program Directors, Program Managers, and Project Controls professionals (50+ direct and indirect reports)</li>
+          <li>Drive strategic hiring, onboarding, and retention of top PMO talent in alignment with program growth needs</li>
+          <li>Establish performance targets, conduct regular reviews, and provide direct feedback, coaching, and development opportunities to team members</li>
+          <li>Foster a culture of accountability, collaboration, continuous learning, and delivery excellence across the PMO</li>
+          <li>Build succession plans and leadership pipelines within the program management organization</li>
+        </ul>
+      </div>
+
+      <div class="resp-group">
+        <div class="group-title">Technology, Reporting &amp; Innovation</div>
+        <ul class="resp-list">
+          <li>Champion the adoption of best-in-class PPM tools, scheduling platforms (Primavera P6, MS Project), and reporting dashboards across the PMO</li>
+          <li>Stay current with technical developments in fiber optic infrastructure, hyperscale data center delivery, and project management innovation</li>
+          <li>Leverage data analytics and KPI dashboards to provide real-time portfolio visibility and enable informed executive decision-making</li>
+          <li>Identify opportunities to optimize tooling, automate reporting workflows, and increase operational efficiency across program teams</li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- Qualifications -->
+    <div>
+      <div class="section-label">Qualifications &amp; Requirements</div>
+      <ul class="qual-list">
+        <li>Bachelor's degree in Engineering, Business, or Construction Management; Master's degree or MBA preferred</li>
+        <li>15+ years of progressive program management experience with demonstrated increase in scope, complexity, and responsibility</li>
+        <li>5+ years of direct experience in hyperscale data center delivery, telecom infrastructure, or critical facility construction</li>
+        <li>Demonstrated success leading large, geographically dispersed cross-functional teams of 50+ people across multiple concurrent programs</li>
+        <li>PgMP and PMP certification required; AACE, Six Sigma, or Agile credentials are a strong plus</li>
+        <li>Deep technical knowledge of fiber optic installation (OSP/ISP), bulk fiber splicing, testing, and data center interconnect environments</li>
+        <li>Strong executive presence with proven ability to engage, influence, and negotiate with C-suite clients, partners, and internal leadership</li>
+        <li>Extensive P&amp;L management experience including budget ownership, cost control, and financial reporting</li>
+        <li>Proficiency in PPM tools and scheduling platforms such as Oracle Primavera P6 and MS Project</li>
+        <li>Experience with commercial contract management, change order administration, and SLA oversight</li>
+        <li>Thorough understanding of safety regulations, environmental standards, and compliance requirements applicable to fiber and data center construction</li>
+        <li>Strong analytical and problem-solving skills with the ability to translate complex program data into clear executive-level reporting</li>
+      </ul>
+    </div>
+
+    <!-- Skills -->
+    <div>
+      <div class="section-label">Core Skills</div>
+      <div class="skills-wrap">
+        <span class="skill-pill">Strategic Leadership</span>
+        <span class="skill-pill">Hyperscale Delivery</span>
+        <span class="skill-pill">P&amp;L Management</span>
+        <span class="skill-pill">Executive Client Engagement</span>
+        <span class="skill-pill">PMO Governance</span>
+        <span class="skill-pill">Portfolio Management</span>
+        <span class="skill-pill">Change Management</span>
+        <span class="skill-pill">Fiber Infrastructure (OSP/ISP)</span>
+        <span class="skill-pill">Oracle Primavera P6</span>
+        <span class="skill-pill">Risk Management</span>
+        <span class="skill-pill">Team Development</span>
+        <span class="skill-pill">Contract Negotiation</span>
+        <span class="skill-pill">Earned Value Management</span>
+        <span class="skill-pill">Safety &amp; Compliance</span>
+        <span class="skill-pill">Stakeholder Communication</span>
+        <span class="skill-pill">Continuous Improvement</span>
+      </div>
+    </div>
+
+  </div><!-- /body -->
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="f-left">Hyperscale PMO &nbsp;·&nbsp; <strong>Job Description #01 of 11</strong></div>
+    <div class="f-right">April 2026</div>
+  </div>
+
+</div>
+</body>
+</html>
